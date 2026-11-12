@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# facts: prints a few facts about your work after an experiment, so you can
+# answer the poll from what your repository shows.
+#
+# Usage: ./facts <experiment number>
+#
+# Run it in the sandbox folder, in the workshop container or codespace. It
+# reads your working copy and changes nothing in it.
+
+set -u
+
+n="${1:-}"
+case "$n" in
+  [1-6]) ;;
+  *) echo "usage: ./facts <experiment number, 1 to 6>" >&2; exit 2 ;;
+esac
+
+if ! git fetch -q origin 2>/dev/null; then
+  echo "facts: cannot reach the workshop's repository. Check the network, then try again." >&2
+  exit 1
+fi
+
+if ! script="$(git show "origin/facts:$n.sh" 2>/dev/null)"; then
+  echo "facts: nothing is published for experiment $n yet." >&2
+  exit 1
+fi
+
+printf '%s\n' "$script" | bash -s -- "$n"

@@ -1,0 +1,12 @@
+// The workshop's container, for GitHub Codespaces. It is the same image that
+// the Docker option uses; see
+// https://github.com/qcon-ai-native-development/workshop-setup
+{
+  "name": "Harness engineering workshop",
+  "image": "ghcr.io/qcon-ai-native-development/workshop:2026-11-14",
+  "remoteUser": "node",
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": { "label": "PetClinic" }
+  }
+}
